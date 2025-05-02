@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-const mangasRouter = require('./routes/mangas')(img)
+const mangasRouter = require('./routes/mangas')(upload)
 
 const app = express()
 
@@ -22,12 +22,12 @@ app.set('views engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 //Middlewares
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
 //Rutas
-app.get('/', (req,res)=>res.render('index'))
+app.get('/', (req,res)=>res.render('home'))
 app.use('/mangas', mangasRouter)
 
 //Servidor
